@@ -56,7 +56,7 @@ class _WeatherState extends State<Weather> {
                       ),
                       Obx((() => Text(
                             _myGlbControllers.cityName.value,
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 12, color: Colors.white),
                           )))
                     ],
                   ),

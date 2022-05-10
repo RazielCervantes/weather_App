@@ -20,6 +20,9 @@ class myGlbControllers extends GetxController {
   RxString currentWindSpeed = "".obs;
   RxString currentHumidity = "".obs;
   RxString cityName = "".obs;
+  RxString contryName = "".obs;
+  RxString stateName = "".obs;
+  RxString city = "".obs;
 
   findMyLocation() async {
     bool devicePermision;
@@ -74,6 +77,26 @@ class myGlbControllers extends GetxController {
     // print(currentTemp);
     // print(currentDewPoint);
     // Get.off(Weather());
+
+    return "success";
+  }
+
+  Future<String> findCityLocation() async {
+    var response = await http.get(
+      Uri.parse(
+          "http://api.openweathermap.org/geo/1.0/direct?q=$city??,$stateName??,$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
+      headers: {
+        'Content-type': "application/json; charset=UTF-8",
+        'Accept': 'application/json'
+      },
+    );
+
+    var location = jsonDecode(response.body);
+    // print(location);
+    print(location[0]["lat"]);
+    print(location[0]["lon"]);
+    lat.value = location[0]["lat"];
+    lng.value = location[0]["lon"];
 
     return "success";
   }

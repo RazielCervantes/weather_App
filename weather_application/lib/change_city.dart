@@ -51,6 +51,7 @@ class _citySelectionState extends State<City> {
                         ),
 
                         ///Adding CSC Picker Widget in app
+
                         CSCPicker(
                           ///Enable disable state dropdown [OPTIONAL PARAMETER]
                           showStates: true,
@@ -59,7 +60,7 @@ class _citySelectionState extends State<City> {
                           showCities: true,
 
                           ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                          flagState: CountryFlag.ENABLE,
+                          flagState: CountryFlag.SHOW_IN_DROP_DOWN_ONLY,
 
                           ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                           dropdownDecoration: BoxDecoration(
@@ -146,14 +147,22 @@ class _citySelectionState extends State<City> {
                             height: 50,
                             width: 280,
                             child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  address =
-                                      "$cityValue, $stateValue, $countryValue";
-                                });
-                                // print(address);
-                                // print(code);
-                                print(countryValue);
+                              onPressed: () async {
+                                address =
+                                    "$cityValue, $stateValue, $countryValue";
+                                _myGlbControllers.cityName.value =
+                                    address.toString();
+                                _myGlbControllers.city.value =
+                                    cityValue.toString();
+                                _myGlbControllers.stateName.value =
+                                    stateValue.toString();
+                                _myGlbControllers.contryName.value =
+                                    countryValue.toString();
+
+                                await _myGlbControllers.findCityLocation();
+                                await _myGlbControllers
+                                    .getCityCurrentWeatherInfo();
+                                Get.offAll(Weather());
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.white.withOpacity(0.7)),
