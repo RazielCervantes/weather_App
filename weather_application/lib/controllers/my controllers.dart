@@ -92,9 +92,8 @@ class myGlbControllers extends GetxController {
     );
 
     var location = jsonDecode(response.body);
-    // print(location);
-    print(location[0]["lat"]);
-    print(location[0]["lon"]);
+    print(location);
+
     lat.value = location[0]["lat"];
     lng.value = location[0]["lon"];
 
@@ -123,7 +122,6 @@ class myGlbControllers extends GetxController {
     currentHumidity.value = _weatherInfo["current"]["humidity"].toString();
     currentPressure.value = _weatherInfo["current"]["pressure"].toString();
     currentWeathericon.value = _weatherInfo["current"]["weather"][0]["icon"];
-    cityName.value = _weatherInfo["timezone"];
 
     // print(currentDescription);
     // print(currentWeathericon);
