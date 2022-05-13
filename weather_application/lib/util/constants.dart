@@ -1,3 +1,3 @@
-class constans {
+class Constans {
   var weathericon = "http://openweathermap.org/img/wn/";
 }

@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:weather_application/weather_information.dart';
 import 'package:http/http.dart' as http;
 
-class myGlbControllers extends GetxController {
+class MyGlbControllers extends GetxController {
   RxDouble lng = 0.0.obs;
   RxDouble lat = 0.0.obs;
   RxDouble locationaccuracy = 0.0.obs;
@@ -40,8 +38,6 @@ class myGlbControllers extends GetxController {
         lng.value = location.longitude;
         locationaccuracy.value = location.accuracy;
         locationtimestp.value = location.timestamp.toString();
-        print(lat);
-        print(lng);
       }
     } else {
       print("Error: GPS sensor permission issue, device level");
@@ -92,7 +88,6 @@ class myGlbControllers extends GetxController {
     );
 
     var location = jsonDecode(response.body);
-    print(location);
 
     lat.value = location[0]["lat"];
     lng.value = location[0]["lon"];

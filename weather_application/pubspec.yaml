@@ -35,6 +35,7 @@ dependencies:
   get: ^4.6.1
   http: ^0.13.4
   weather: ^2.0.1
+  intl: ^0.17.0
 
 
 dev_dependencies:

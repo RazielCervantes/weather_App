@@ -1,21 +1,20 @@
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_application/weather_information.dart';
 import 'package:weather_application/controllers/my%20controllers.dart';
 
 class City extends StatefulWidget {
-  City({
+  const City({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<City> createState() => _citySelectionState();
+  State<City> createState() => _CitySelectionState();
 }
 
-class _citySelectionState extends State<City> {
-  final myGlbControllers _myGlbControllers = Get.put(myGlbControllers());
+class _CitySelectionState extends State<City> {
+  final MyGlbControllers _myGlbControllers = Get.put(MyGlbControllers());
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
@@ -26,9 +25,7 @@ class _citySelectionState extends State<City> {
   Widget build(BuildContext context) {
     GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
     return GestureDetector(
-      onTap: () {
-        // FocusScope.of(context).requestFocus(FocusNode());
-      },
+      onTap: () {},
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.blue[400],
@@ -36,13 +33,13 @@ class _citySelectionState extends State<City> {
             child: Column(
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 28),
                     height: 320,
-                    // color: Colors.amber,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
+                        const Padding(
+                          padding: EdgeInsets.all(16.0),
                           child: Text(
                             "Select a city",
                             style: TextStyle(
@@ -65,7 +62,7 @@ class _citySelectionState extends State<City> {
                           ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                           dropdownDecoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                               color: Colors.blueGrey[300],
                               border: Border.all(
                                   color: Colors.blueGrey.shade300, width: 1)),
@@ -94,19 +91,19 @@ class _citySelectionState extends State<City> {
                           // disableCountry: true,
 
                           ///selected item style [OPTIONAL PARAMETER]
-                          selectedItemStyle: TextStyle(
+                          selectedItemStyle: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                           ),
 
                           ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                          dropdownHeadingStyle: TextStyle(
+                          dropdownHeadingStyle: const TextStyle(
                               color: Colors.black,
                               fontSize: 17,
                               fontWeight: FontWeight.bold),
 
                           ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                          dropdownItemStyle: TextStyle(
+                          dropdownItemStyle: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                           ),
@@ -142,7 +139,7 @@ class _citySelectionState extends State<City> {
                           },
                         ),
                         Padding(
-                          padding: EdgeInsets.all(28.0),
+                          padding: const EdgeInsets.all(28.0),
                           child: SizedBox(
                             height: 50,
                             width: 280,
@@ -162,11 +159,11 @@ class _citySelectionState extends State<City> {
                                 await _myGlbControllers.findCityLocation();
                                 await _myGlbControllers
                                     .getCityCurrentWeatherInfo();
-                                Get.offAll(Weather());
+                                Get.offAll(const Weather());
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.white.withOpacity(0.7)),
-                              child: Text(
+                              child: const Text(
                                 "Show Weather",
                                 style: TextStyle(
                                     fontSize: 22,
@@ -178,49 +175,36 @@ class _citySelectionState extends State<City> {
                         ),
                       ],
                     )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Or",
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
                   ),
                 ),
-
                 GestureDetector(
                   onTap: (() async {
                     await _myGlbControllers.findMyLocation();
                     await _myGlbControllers.getMyCurrentWeatherInfo();
-                    Get.off(Weather());
+                    Get.off(const Weather());
                   }),
-                  child: Container(
-                    child: Column(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          size: 120,
-                          color: Colors.white,
-                        ),
-                        const Text(
-                          "get weather of my location",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 18,
-                              color: Colors.white),
-                        )
-                      ],
-                    ),
+                  child: Column(
+                    children: const [
+                      Icon(
+                        Icons.location_on,
+                        size: 120,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "get weather of my location",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 18,
+                            color: Colors.white),
+                      )
+                    ],
                   ),
                 ),
-
-                ///print newly selected country state and city in Text Widget
-                // TextButton(
-                //     onPressed: () {
-                //       setState(() {
-                //         address = "$cityValue, $stateValue, $countryValue";
-                //       });
-                //     },
-                //     child: Text("Print Data")),
-                // Text(address)
               ],
             ),
           ),
