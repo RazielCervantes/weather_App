@@ -145,10 +145,18 @@ class _CitySelectionState extends State<City> {
                             width: 280,
                             child: ElevatedButton(
                               onPressed: () async {
-                                address =
-                                    "$cityValue, $stateValue, $countryValue";
+                                if (cityValue == null) {
+                                  address = "$stateValue , $countryValue ";
+                                } else if (stateValue == " ") {
+                                  address = "$countryValue";
+                                } else {
+                                  address =
+                                      "$cityValue, $stateValue, $countryValue";
+                                }
+
                                 _myGlbControllers.cityName.value =
                                     address.toString();
+
                                 _myGlbControllers.city.value =
                                     cityValue.toString();
                                 _myGlbControllers.stateName.value =
@@ -156,7 +164,7 @@ class _CitySelectionState extends State<City> {
                                 _myGlbControllers.contryName.value =
                                     countryValue.toString();
 
-                                await _myGlbControllers.findCityLocation();
+                                await _myGlbControllers.findMyLocation();
                                 await _myGlbControllers
                                     .getCityCurrentWeatherInfo();
                                 Get.offAll(const Weather());

@@ -77,23 +77,82 @@ class MyGlbControllers extends GetxController {
     return "success";
   }
 
-  Future<String> findCityLocation() async {
-    var response = await http.get(
-      Uri.parse(
-          "http://api.openweathermap.org/geo/1.0/direct?q=$city??,$stateName??,$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
-      headers: {
-        'Content-type': "application/json; charset=UTF-8",
-        'Accept': 'application/json'
-      },
-    );
+  findlocation() {
+    if (stateName == "") {
+      findCityLocationContry() async {
+        var response = await http.get(
+          Uri.parse(
+              "http://api.openweathermap.org/geo/1.0/direct?q=$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
+          headers: {
+            'Content-type': "application/json; charset=UTF-8",
+            'Accept': 'application/json'
+          },
+        );
 
-    var location = jsonDecode(response.body);
+        var location = jsonDecode(response.body);
 
-    lat.value = location[0]["lat"];
-    lng.value = location[0]["lon"];
+        lat.value = location[0]["lat"];
+        lng.value = location[0]["lon"];
 
-    return "success";
+        return "success";
+      }
+    } else if (city == "") {
+      findCityLocationState() async {
+        var response = await http.get(
+          Uri.parse(
+              "http://api.openweathermap.org/geo/1.0/direct?q=$stateName?,$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
+          headers: {
+            'Content-type': "application/json; charset=UTF-8",
+            'Accept': 'application/json'
+          },
+        );
+
+        var location = jsonDecode(response.body);
+
+        lat.value = location[0]["lat"];
+        lng.value = location[0]["lon"];
+
+        return "success";
+      }
+    } else {
+      findCityLocation() async {
+        var response = await http.get(
+          Uri.parse(
+              "http://api.openweathermap.org/geo/1.0/direct?q=$city?,$stateName?,$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
+          headers: {
+            'Content-type': "application/json; charset=UTF-8",
+            'Accept': 'application/json'
+          },
+        );
+
+        var location = jsonDecode(response.body);
+
+        lat.value = location[0]["lat"];
+        lng.value = location[0]["lon"];
+
+        return "success";
+      }
+    }
   }
+
+  // Future<String> findCityLocation() async {
+  //   var response = await http.get(
+
+  //     Uri.parse(
+  //         "http://api.openweathermap.org/geo/1.0/direct?q=$city?,$stateName?,$contryName&limit=1&appid=8304aea1779e758d5a23406042e8a9c1"),
+  //     headers: {
+  //       'Content-type': "application/json; charset=UTF-8",
+  //       'Accept': 'application/json'
+  //     },
+  //   );
+
+  //   var location = jsonDecode(response.body);
+
+  //   lat.value = location[0]["lat"];
+  //   lng.value = location[0]["lon"];
+
+  //   return "success";
+  // }
 
   Future<String> getCityCurrentWeatherInfo() async {
     var response = await http.get(
